@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='kelolahome.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Kelola Konten</title>
+</head>
+<body>
+    <h1>Kelola Konten</h1>
+    <form action="{{ url_for('kelolahome') }}" method="post" enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ title }}" required><br>
+        
+        <label for="subtitle">Subtitle:</label>
+        <input type="text" id="subtitle" name="subtitle" value="{{ subtitle }}" required><br>
+        
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image"><br>
+        
+        <input type="submit" value="Update">
+
+        {% if admin_logged_in %}
+            <ul class="nav-item">
+                <a class="nav-link btn btn-outline-danger" href="{{ url_for('dasboardadmin') }}">Logout</a>
+            </ul>
+            {% endif %}
+    </form>
+
+</body>
+</html>
+
+
+

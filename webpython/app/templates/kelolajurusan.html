@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Jurusan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='kelolajurusan.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Kelola Jurusan</h2>
+        <form method="post" action="{{ url_for('update_jurusan') }}" enctype="multipart/form-data">
+            {% for id, jurusan in data_jurusan.items() %}
+                <div class="form-group">
+                    <label for="nama{{ id }}">Nama Jurusan:</label>
+                    <input type="text" class="form-control" id="nama{{ id }}" name="nama{{ id }}" value="{{ jurusan['nama'] }}">
+                </div>
+                <div class="mb-3">
+                    <label for="skills{{ id }}" class="form-label">Skills:</label>
+                    <textarea class="form-control" id="skills{{ id }}" name="skills{{ id }}" rows="4">{{ jurusan['skills'] | join(', ') }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image{{ id }}" class="form-label">Gambar:</label>
+                    <input type="file" class="form-control" id="image{{ id }}" name="image{{ id }}">
+                    <img src="{{ url_for('static', filename='image/' ~ jurusan['image']) }}" alt="{{ jurusan['nama'] }}" width="100" class="mt-2">
+                </div>
+                <hr>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Update</button>
+            <br><br>
+            {% if admin_logged_in %}
+            <ul class="nav-item">
+                <a class="nav-link btn btn-outline-danger" href="{{ url_for('dasboardadmin') }}">Logout</a>
+            </ul>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
